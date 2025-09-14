@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plexus Effect Navigation Menu</title>
+    <style>
+        /* --- 基本スタイル --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0C0C14;
+            color: #EAEAEA;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Canvas スタイル --- */
+        #plexus-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 他の要素の背面に配置 */
+            z-index: -1;
+        }
+
+        /* --- ナビゲーションメニュー スタイル --- */
+        .navigation-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .navigation-menu li {
+            margin: 2.5rem 0;
+        }
+
+        .navigation-menu a {
+            color: #A0A0B0;
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* --- ホバー時のフィードバック --- */
+        .navigation-menu a:hover {
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- エフェクト描画用のCanvas -->
+    <canvas id="plexus-canvas"></canvas>
+
+    <!-- ナビゲーションメニュー -->
+    <nav>
+        <ul class="navigation-menu">
+            <li><a href="#">WEB DESIGN</a></li>
+            <li><a href="#">GRAPHIC DESIGN</a></li>
+            <li><a href="#">WORKS</a></li>
+        </ul>
+    </nav>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Canvasのセットアップ ---
+        const canvas = document.getElementById('plexus-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 画面サイズに合わせてCanvasの解像度を設定
+        const setupCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', setupCanvas);
+        setupCanvas();
+
+        // --- エフェクト設定値 ---
+        const settings = {
+            particleAmount: 300,      // パーティクルの最大数
+            defaultSpeed: 0.5,        // パーティクルの基本速度
+            addedSpeed: 0.7,          // マウス移動時に加わる速度
+            connectionDistance: 120,  // パーティクルが線で結ばれる最大距離
+            particleLife: 80,         // パーティクルの寿命（フレーム数）
+            fadeEffectAlpha: 0.08,    // 残像効果の強さ（0に近いほど残像が長く残る）
+        };
+
+        // --- パーティクル管理 ---
+        let particles = [];
+        let mouse = { x: null, y: null };
+        let isGeneratingParticles = false; // パーティクル生成を制御するフラグ
+
+        // パーティクルクラスの定義
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                // 速度にランダム性を加える
+                this.vx = (Math.random() - 0.5) * settings.defaultSpeed;
+                this.vy = (Math.random() - 0.5) * settings.defaultSpeed;
+                this.life = settings.particleLife + Math.random() * 20;
+                this.initialLife = this.life;
+                this.alpha = 1;
+            }
+
+            // パーティクルの位置と状態を更新
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life--;
+                // 寿命に応じて透明度を変化させる
+                this.alpha = Math.max(0, this.life / this.initialLife);
+            }
+
+            // パーティクルを描画
+            draw() {
+                ctx.fillStyle = `rgba(200, 220, 255, ${this.alpha * 0.8})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // --- イベントリスナー設定 ---
+        const menuItems = document.querySelectorAll('.navigation-menu a');
+
+        menuItems.forEach(item => {
+            // マウスがメニュー項目上を移動している間の処理
+            item.addEventListener('mousemove', (e) => {
+                isGeneratingParticles = true;
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            // マウスがメニュー項目から離れた時の処理
+            item.addEventListener('mouseleave', () => {
+                isGeneratingParticles = false;
+            });
+        });
+
+        // --- アニメーションループ ---
+        const animate = () => {
+            // 1. Canvasを少し透明な黒で塗りつぶし、残像効果を生む
+            ctx.fillStyle = `rgba(12, 12, 20, ${settings.fadeEffectAlpha})`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // パーティクル生成フラグが立っている場合、カーソル位置に新しいパーティクルを追加
+            if (isGeneratingParticles && particles.length < settings.particleAmount) {
+                // 一度に生成するパーティクルの数
+                const createCount = 2;
+                for (let i = 0; i < createCount; i++) {
+                    const p = new Particle(mouse.x, mouse.y);
+                    // マウスの動きに応じて初速を少し加える
+                    p.vx += (Math.random() - 0.5) * settings.addedSpeed;
+                    p.vy += (Math.random() - 0.5) * settings.addedSpeed;
+                    particles.push(p);
+                }
+            }
+
+            // 2. 寿命が尽きたパーティクルを配列から削除
+            particles = particles.filter(p => p.life > 0);
+
+            // 3. 全てのパーティクルの状態を更新
+            particles.forEach(p => p.update());
+
+            // 4. パーティクル同士を線で結ぶ
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    // 距離がしきい値以下の場合に線を描画
+                    if (dist < settings.connectionDistance) {
+                        const lineAlpha = (1 - (dist / settings.connectionDistance)) * p1.alpha * p2.alpha;
+                        ctx.strokeStyle = `rgba(150, 180, 255, ${lineAlpha * 0.5})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // 5. 全てのパーティクルを描画
+            particles.forEach(p => p.draw());
+
+            // 次のフレームを要求
+            requestAnimationFrame(animate);
+        };
+
+        // アニメーションを開始
+        animate();
+    });
+    </script>
+
+</body>
+</html>

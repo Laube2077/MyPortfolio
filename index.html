@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akatsuki Maeda - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        'background': '#111827', // gray-900
+                        'surface': '#1f2937',   // gray-800
+                        'primary': '#f3f4f6',    // gray-100
+                        'secondary': '#9ca3af', // gray-400
+                        'accent': '#38bdf8',     // lightBlue-400
+                    },
+                    borderRadius: {
+                        'md': '0.375rem',
+                    }
+                }
+            }
+        }
+    </script>
+        </head>
+<body class="bg-background text-primary antialiased">
+
+    <!-- Section Indicator Bar -->
+    <div id="section-indicator-bar">
+        <div class="indicator-dot" data-section="hero"></div>
+        <div class="indicator-dot" data-section="works"></div>
+        <div class="indicator-dot" data-section="about"></div>
+        <div class="indicator-dot" data-section="contact"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-wider">Akatsuki Maeda</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#works" class="nav-link">Works</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="h-screen flex items-center justify-center text-center flex-col relative">
+            <div id="hero-text" class="z-10">
+                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter">前田暁紀のポートフォリオ</h1>
+                <p class="mt-4 text-lg md:text-2xl text-secondary">（簡易版）</p>
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section id="works" class="py-20 md:py-32 scroll-target">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center">Works</h2>
+
+                <!-- Controls -->
+                <div class="flex justify-center space-x-4 my-12">
+                    <button id="expand-all" class="control-btn">すべて展開</button>
+                    <button id="collapse-all" class="control-btn">すべて折りたたむ</button>
+                </div>
+
+                <!-- Works List -->
+                <div class="collapsible-container">
+                    <div class="collapsible-header">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold">動画など</h3>
+                            <p class="mt-2 text-secondary">自主製作した動画作品の一覧です。</p>
+                        </div>
+                        <span class="collapsible-icon">+</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="overflow-hidden">
+                            <div>
+                                <!-- Sub-category: スダトラマン -->
+                                <div class="collapsible-container">
+                                    <div class="collapsible-header">
+                                        <div>
+                                            <h4 class="text-xl md:text-2xl font-bold">自主製作映画「シン・スダトラマン」</h4>
+                                            <p class="mt-1 text-secondary text-sm">高校2,3年生時に制作。「シン・ウルトラマン」(2022,樋口真嗣)のパロディ映画です。<br>
+                                            監督/脚本/編集/CG製作/合成などをすべて一人で行いました。決してクオリティの高い映画ではありませんがそれも味です。<br>
+                                            </p>
+                                        </div>
+                                        <span class="collapsible-icon">+</span>
+                                    </div>
+                                    <div class="collapsible-content">
+                                        <div class="overflow-hidden">
+                                            <div class="py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div class="work-item bg-surface p-6 rounded-md shadow-lg flex flex-col md:flex-row items-start space-x-0 md:space-x-6">
+                                                    <div class="flex-shrink-0 w-full md:w-1/2 flex flex-col items-start space-y-4">
+                                                        <div class="w-full rounded-md overflow-hidden">
+                                                            <img src="image/sdatraman.jpg" alt="「シン・スダトラマン」本編は現在非公開です" class="w-full h-full object-cover">
+                                                        </div>
+                                                        <h3 class="text-xl font-bold">「シン・スダトラマン」本編</h3>
+                                                    </div>
+                                                    <div class="flex-grow text-left w-full md:w-1/2 mt-4 md:mt-0">
+                                                        <p class="text-secondary">
+                                                            「シン・スダトラマン」の本編です。<br>
+                                                            3Dスキャンや特撮技術を用いて同級生を巨大ヒーロー化しました。
+                                                        </p>
+                                                        <p class="text-sm text-gray-500 mt-2"><strong>使用ソフトウェア:</strong> Adobe After Effects, DaVinci Resolve, Blender</p>
+                                                        <p class="text-sm text-gray-500"><strong>製作時期:</strong> 2022年6月～2024年4月</p>
+                                                        <p class="text-sm text-gray-600">※おもに音楽の著作権の関係でインターネット上にアップロードできないため、現在お見せできません</p>
+                                                    </div>
+                                                </div>
+                                                <div class="work-item bg-surface p-6 rounded-md shadow-lg flex flex-col md:flex-row items-start space-x-0 md:space-x-6">
+                                                    <div class="flex-shrink-0 w-full md:w-1/2 flex flex-col items-start space-y-4">
+                                                        <div class="video-aspect-ratio w-full rounded-md overflow-hidden">
+                                                            <iframe src="https://www.youtube.com/embed/PMgKnOdSfUs" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                        <h3 class="text-xl font-bold">「シン・スダトラマン」予告編</h3>
+                                                    </div>
+                                                    <div class="flex-grow text-left w-full md:w-1/2 mt-4 md:mt-0">
+                                                        <p class="text-secondary">自主製作映画「シン・スダトラマン」の予告編です。本編の後に作成しました。<br>本編に存在しないカットを新たに製作し、ふんだんに使用しています。</p>
+                                                        <p class="text-sm text-gray-500 mt-2"><strong>使用ソフトウェア:</strong> DaVinci Resolve, Blender</p>
+                                                        <p class="text-sm text-gray-500"><strong>製作時期:</strong> 2025年7月</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sub-category: スペースプローブコンテスト -->
+                                <div class="collapsible-container">
+                                    <div class="collapsible-header">
+                                        <div>
+                                            <h4 class="text-xl md:text-2xl font-bold">2022年度スペースプローブコンテスト</h4>
+                                            <p class="mt-1 text-secondary text-sm">株式会社植松電機主催の「スペースプローブコンテスト」に出場した際のプレゼン動画になります。</p>
+                                        </div>
+                                        <span class="collapsible-icon">+</span>
+                                    </div>
+                                    <div class="collapsible-content">
+                                        <div class="overflow-hidden">
+                                            <div class="py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div class="work-item bg-surface p-6 rounded-md shadow-lg flex flex-col md:flex-row items-start space-x-0 md:space-x-6">
+                                                    <div class="flex-shrink-0 w-full md:w-1/2 flex flex-col items-start space-y-4">
+                                                        <div class="video-aspect-ratio w-full rounded-md overflow-hidden">
+                                                            <iframe src="https://www.youtube.com/embed/dOu-L2n2YBM" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                        <h3 class="text-xl font-bold">チームFantome 事前プレゼン動画</h3>
+                                                    </div>
+                                                    <div class="flex-grow text-left w-full md:w-1/2 mt-4 md:mt-0">
+                                                        <p class="text-secondary">スペースプローブ（人工衛星のようなもの）打ち上げ前のプレゼン動画です。3DCGを用いて視覚的にわかりやすい説明をこころがけました。</p>
+                                                        <p class="text-sm text-gray-500 mt-2"><strong>使用ソフトウェア:</strong> PowerPoint, DaVinci Resolve, Blender</p>
+                                                        <p class="text-sm text-gray-500"><strong>製作時期:</strong> 2022年8月</p>
+                                                    </div>
+                                                </div>
+                                                <div class="work-item bg-surface p-6 rounded-md shadow-lg flex flex-col md:flex-row items-start space-x-0 md:space-x-6">
+                                                    <div class="flex-shrink-0 w-full md:w-1/2 flex flex-col items-start space-y-4">
+                                                        <div class="video-aspect-ratio w-full rounded-md overflow-hidden">
+                                                            <iframe src="https://www.youtube.com/embed/zdzYNuQIiKw" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                        <h3 class="text-xl font-bold">チームFantome 事後プレゼン動画</h3>
+                                                    </div>
+                                                    <div class="flex-grow text-left w-full md:w-1/2 mt-4 md:mt-0">
+                                                        <p class="text-secondary">打ち上げ後の失敗の反省および調査内容などをまとめた事後プレゼン動画になります。</p>
+                                                        <p class="text-sm text-gray-500 mt-2"><strong>仕様ソフトウェア:</strong> PowerPoint, DaVinci Resolve, Blender</p>
+                                                        <p class="text-sm text-gray-500"><strong>製作時期:</strong> 2022年9月</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-container">
+                    <div class="collapsible-header">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold">画像など(準備中)</h3>
+                            <p class="mt-2 text-secondary">静止画作品の一覧です。(現在準備中です)</p>
+                        </div>
+                        <span class="collapsible-icon">+</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="overflow-hidden"><p class="py-6">【準備中です】</p></div>
+                    </div>
+                </div>
+
+                <div class="collapsible-container">
+                    <div class="collapsible-header">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold">ゲーム(準備中)</h3>
+                            <p class="mt-2 text-secondary">制作したゲームの一覧です。(現在準備中です)</p>
+                        </div>
+                        <span class="collapsible-icon">+</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="overflow-hidden"><p class="py-6">【準備中です】</p></div>
+                    </div>
+                </div>
+
+                <!-- Category: 3D制作物 -->
+                <div class="collapsible-container mt-8">
+                    <div class="collapsible-header">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold">3D制作物(準備中)</h3>
+                            <p class="mt-2 text-secondary">3Dモデリングの一覧です。(現在準備中です)</p>
+                        </div>
+                        <span class="collapsible-icon">+</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="overflow-hidden"><p class="py-6">【準備中】</p></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-32 bg-surface scroll-target">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <h2 class="text-4xl md:text-5xl font-bold">About Me</h2>
+                <p class="mt-8 text-lg leading-relaxed text-secondary">
+                    こんにちは。ご覧いただきありがとうございます。<br>
+                    前田暁紀（まえだ あかつき）と申します。<br>
+                    普段は札幌で大学生をしています。<br>
+                    映像制作や3Dモデリング、プログラミングなどを趣味で行っております。<br>
+                    少ないポートフォリオではありますが、これから増やしていければと思っております。<br>
+                    どうぞよろしくお願いいたします。
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32 scroll-target">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <h2 class="text-4xl md:text-5xl font-bold">Contact</h2>
+                <p class="mt-8 text-lg text-secondary">
+                    お仕事のご依頼やご相談は、以下のメールアドレスからお気軽にご連絡ください。
+                </p>
+                <div class="mt-8">
+                    <a href="mailto:laube2077@gmail.com" class="text-xl text-accent font-semibold hover:underline">Laube2077@gmail.com</a>
+                </div>
+                <!-- `
+                <div class="flex justify-center space-x-6 mt-8">
+                    <a href="#" class="contact-link">X (Twitter)</a>
+                    <a href="#" class="contact-link">LinkedIn</a>
+                    <a href="#" class="contact-link">GitHub</a>
+                </div>
+                    ` -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+                <footer class="py-8">
+                    <div class="container mx-auto px-6 text-center text-secondary">
+                        &copy; 2025 Akatsuki Maeda. All Rights Reserved.
+                    </div>
+                </footer>
+
+                <script src="script.js"></script>
+</body>
+</html>
